@@ -1,0 +1,28 @@
+//Create Equipment
+POST http://localhost:3003/equipment
+content-type: application/json
+
+{  
+  "model": "Model PTW",
+  "category": "toner",
+  "wifi": "true",
+  "ppm": 33355,  
+  "consumption": 16.7
+}
+###
+
+//Create Equipment with required fields only
+POST http://localhost:3003/equipment
+content-type: application/json
+
+{  
+  "model": "Model PC",
+  "category": "cartucho"
+}
+###
+
+//List All Equipment Records
+GET http://localhost:3003/equipment
+content-type: application/json
+
+###
