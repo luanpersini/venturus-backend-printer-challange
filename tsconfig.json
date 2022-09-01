@@ -13,11 +13,11 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {    
-      "@api/*": ["src/presentation/*"],
-      "@config/*": ["src/config/*"],
+      "@presentation/*": ["src/presentation/*"],
       "@modules/*": ["src/modules/*"],
-      "@infrastructure/*": ["src/infrastructure/*"],      
-      "@tests/*": ["src/infrastructure/__tests__/*"]
+      "@infrastructure/*": ["src/infrastructure/*"],
+      "src/*": ["src/*"],
+      "@tests/*": ["tests/*"],
     }
   },
   "exclude": [

@@ -2,6 +2,8 @@ import { EquipmentDto } from '../dto/equipment.dto'
 import { Equipment } from '../entities/Equipment'
 
 export interface IEquipmentService {
-  create(dto: EquipmentDto): Promise<Equipment>
-  listAllEquipments (): Promise<Equipment[]>
+  createEquipment(equipmentData: EquipmentDto): Promise<Equipment>
+  listEquipments (id: string): Promise<Equipment[]>  
+  updateEquipment(id: string, data: EquipmentDto): Promise<Equipment>
+  deleteEquipment(id: string): Promise<void>
 }

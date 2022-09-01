@@ -1,3 +1,4 @@
+import { EquipmentUpdateDto } from '@modules/equipments/domain/dto/equipment-update.dto'
 import { Equipment } from '@modules/equipments/domain/entities/Equipment'
 import { IEquipmentRepository } from '@modules/equipments/domain/interfaces/equipment-repository'
 import { Injectable } from '@nestjs/common'
@@ -18,66 +19,30 @@ export class EquipmentRepository implements IEquipmentRepository {
     })
   }
 
-  public async equipmentExists(equipment: Equipment): Promise<boolean> {
-    const { model, category } = equipment
-    return (await EquipmentModel.count({ where: { model, category } })) > 0
+  public async getEquipmentById(id: string): Promise<Equipment> {
+    const result = await EquipmentModel.findOne({ where: { id } })
+    if (!result) {
+      return null
+    }
+    return new Equipment(result)
   }
 
-  public async updateEquipment(equipment: Equipment): Promise<void> {
-    throw new Error('Method not implemented.')
+  public async updateEquipment(id: string, updateData: EquipmentUpdateDto): Promise<Equipment> {
+    const equipment = await EquipmentModel.findOne({
+      where: { id }
+    })
+    if (!equipment) {
+      return null
+    }
+    const result = await equipment.update({ ...updateData })
+    return new Equipment(result)
   }
 
   public async deleteEquipmentById(id: string): Promise<number> {
-    throw new Error('Method not implemented.')
+    return await EquipmentModel.destroy({ where: { id } })
   }
 
-  /*
- 
-  async updateUser(user: User): Promise<void> {
-    //TODO throw exception if no data is affected
-    await UserModel.update(
-      {
-        name: user.name,
-        email: user.email,
-        passwordAt: user.passwordAt,
-        updatedAt: new Date(),
-        isVerified: user.isVerified,
-        verifiedAt: user.verifiedAt
-      },
-      { where: { id: user.id } }
-    )
+  public async equipmentExists(model: string, category: string): Promise<boolean> {
+    return (await EquipmentModel.count({ where: { model, category } })) > 0
   }
-
-  public async getUser(id: string): Promise<User> {
-    const user = await UserModel.findOne({ where: { id } })
-    if (user) {
-      return User.Factory.New(user)
-    }
-    return null
-  } 
-
-  public async emailExists(email: string): Promise<boolean> {
-    return (await UserModel.count({ where: { email } })) > 0
-  }
-
-  public async deleteUserById(id: string): Promise<number> {
-    await UserInvitationModel.destroy({
-      where: {
-        [Op.or]: {
-          inviterUserId: {
-            [Op.eq]: id
-          },
-          inviteeUserId: {
-            [Op.eq]: id
-          }
-        }
-      }
-    })
-
-    await UserAssociationModel.destroy({ where: { userId: id } })
-
-    //TODO throw exception if no data is affected
-    return await UserModel.destroy({ where: { id } })
-  }
-  */
 }

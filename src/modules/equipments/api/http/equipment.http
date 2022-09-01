@@ -5,11 +5,12 @@ content-type: application/json
 {  
   "model": "Model PTW",
   "category": "toner",
-  "wifi": "true",
+  "wifi": true,
   "ppm": 33355,  
   "consumption": 16.7
 }
 ###
+
 
 //Create Equipment with required fields only
 POST http://localhost:3003/equipment
@@ -21,8 +22,30 @@ content-type: application/json
 }
 ###
 
+
 //List All Equipment Records
 GET http://localhost:3003/equipment
 content-type: application/json
+###
 
+
+//Get equipment by ID
+GET http://localhost:3003/equipment?id=bcd93ac4-e5e8-473e-a5bb-ca829d785fb3
+content-type: application/json
+###
+
+
+//Update Equipment
+PATCH http://localhost:3003/equipment?id=6b99ce34-6012-4fe1-be81-562477e976da
+content-type: application/json
+
+{   
+  "wifi": false
+}
+###
+
+
+//Delete Equipment
+DELETE http://localhost:3003/equipment?id=6b99ce34-6012-4fe1-be81-562477e976da
+content-type: application/json
 ###

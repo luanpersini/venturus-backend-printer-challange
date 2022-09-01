@@ -53,18 +53,17 @@ Test files:
 - `npm run test:unit` - unit tests
 - `npm run test:e2e`  - end to end tests
 
+## Functionalities
+
+1. [Create Equipment](docs/equipment-create.md)
+1. [List Equipments](docs/equipment-update.md)
+1. [Uptade Equipment](docs/equipment-list.md)
+1. [Delete Equipment](docs/equipment-update.md)
+
 ## Architecture
 
-Used clean architecture with concepts of "Domain Driven Design", separating the aplication by components (modules). The services (usecases) contains the business rules of the application.
+Ive used clean architecture with concepts of "Domain Driven Design", separating the aplication by components (modules), following NestJS standards.
 
-The dependency inversion principle is aplied and depencency happens from the outer layers to the inner layers.
-
-The request flow is as showed bellow:
-
-- Controllers (request) > Services > Repositories > Services > Controllers (response)
-
-//TODO remove
-Printer controller - DTOs - Response - Interfaces
-Printer Service - IPrinterService
-Printer Repository - IPrinterRepository
+- The services (usecases) contains the business rules of the application.
+- The dependency inversion principle is aplied and depencency happens from the outer layers to the inner layers.
 

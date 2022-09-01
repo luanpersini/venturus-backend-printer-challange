@@ -13,12 +13,11 @@ module.exports = {
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest'
   },
-  moduleNameMapper: {   
-    "@api/(.*)": ["<rootDir>/src/api/$1"],   
-    "@infrastructure/(.*)": ["<rootDir>/src/infrastructure/$1"],
+  moduleNameMapper: {
+    "@presentation/(.*)": ["<rootDir>/src/presentation/$1"],
     "@modules/(.*)": ["<rootDir>/src/modules/$1"],
-    "@tests/(.*)": ["<rootDir>/tests/$1"],
+    "@infrastructure/(.*)": ["<rootDir>/src/infrastructure/$1"],    
     "src/(.*)": ["<rootDir>/src/$1"],
-    "@src/(.*)": ["<rootDir>/src/$1"]
+    "@tests/(.*)": ["<rootDir>/tests/$1"]
   }
 }
