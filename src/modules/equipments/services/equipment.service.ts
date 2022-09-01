@@ -1,10 +1,9 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common'
-import { NotFoundException } from '@nestjs/common/exceptions'
 import { errorMessages } from '@presentation/errors/error-messages'
 import { ItemAlreadyExistsError } from '@presentation/errors/item-already-exists.error'
 import { EquipmentUpdateDto } from '../domain/dto/equipment-update.dto'
 import { EquipmentDto } from '../domain/dto/equipment.dto'
-import { Equipment } from '../domain/entities/Equipment'
+import { Equipment } from '../domain/entities/equipment.entity'
 import { IEquipmentRepository } from '../domain/interfaces/equipment-repository'
 import { IEquipmentService } from '../domain/interfaces/equipment-service'
 
@@ -25,18 +24,18 @@ export class EquipmentService implements IEquipmentService {
     console.log(`Equipment: Equipment [id: ${result.id}] [model: ${result.model}] created.`)
     return result
   }
-  
+
   public async listEquipments(id: string): Promise<Equipment[]> {
-    if(!id) {
+    if (!id) {
       return await this.equipmentRepository.getAllEquipments()
     }
-    
+
     const equipment = await this.equipmentRepository.getEquipmentById(id)
 
     if (!equipment) {
-      throw new NotFoundException(errorMessages.equipmentNotFound)
-    }     
-    
+      throw new BadRequestException(errorMessages.equipmentNotFound)
+    }
+
     return [equipment]
   }
 
@@ -46,11 +45,11 @@ export class EquipmentService implements IEquipmentService {
     const equipment = await this.equipmentRepository.getEquipmentById(id)
 
     if (!equipment) {
-      throw new NotFoundException(errorMessages.equipmentNotFound)
+      throw new BadRequestException(errorMessages.equipmentNotFound)
     }
-       
-    if (updateData.model && updateData.category) {
-      if (equipment.model != updateData.model && equipment.category != updateData.category) {
+
+    if (updateData.model || updateData.category) {
+      if (equipment.model != updateData.model || equipment.category != updateData.category) {
         await this.checkIfEquipmentExists(updateData.model, updateData.category)
       }
     }
@@ -59,16 +58,16 @@ export class EquipmentService implements IEquipmentService {
     return result
   }
 
-  public async deleteEquipment(id: string): Promise<void>  {
+  public async deleteEquipment(id: string): Promise<void> {
     console.log(`Delete Equipment: Starting process for equipment [id: ${id}]`)
     const result = await this.equipmentRepository.deleteEquipmentById(id)
-    
-    if(result === 0){      
+
+    if (result === 0) {
       console.log(`Delete Equipment: Equipment with [id: ${id}] not found.`)
       throw new BadRequestException(errorMessages.equipmentNotFound)
-    }  
+    }
 
-    console.log(`Delete Equipment: Equipment [id: ${id}] deleted.`)  
+    console.log(`Delete Equipment: Equipment [id: ${id}] deleted.`)
   }
 
   private async checkIfEquipmentExists(model: string, category: string): Promise<void> {

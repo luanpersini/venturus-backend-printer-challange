@@ -1,11 +1,11 @@
 import { EquipmentDto } from '../dto/equipment.dto'
-import { Equipment } from '../entities/Equipment'
+import { Equipment } from '../entities/equipment.entity'
 
 export interface IEquipmentRepository {
   createEquipment(equipment: Equipment): Promise<Equipment>
   updateEquipment(id: string, updateData: EquipmentDto): Promise<Equipment>
   getAllEquipments(): Promise<Equipment[]>
   getEquipmentById(id: string): Promise<Equipment>
-  deleteEquipmentById(id: string): Promise<number>  
+  deleteEquipmentById(id: string): Promise<number>
   equipmentExists(model: string, category: string): Promise<boolean>
 }

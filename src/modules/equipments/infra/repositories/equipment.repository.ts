@@ -1,5 +1,5 @@
 import { EquipmentUpdateDto } from '@modules/equipments/domain/dto/equipment-update.dto'
-import { Equipment } from '@modules/equipments/domain/entities/Equipment'
+import { Equipment } from '@modules/equipments/domain/entities/equipment.entity'
 import { IEquipmentRepository } from '@modules/equipments/domain/interfaces/equipment-repository'
 import { Injectable } from '@nestjs/common'
 import { EquipmentModel } from '../models/equipment.model'

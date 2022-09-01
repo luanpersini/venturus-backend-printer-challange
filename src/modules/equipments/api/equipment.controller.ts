@@ -1,18 +1,9 @@
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Inject, Patch,
-  Post,
-  Query
-} from '@nestjs/common'
+import { BadRequestException, Body, Controller, Delete, Get, Inject, Patch, Post, Query } from '@nestjs/common'
 import { errorMessages } from '@presentation/errors/error-messages'
 import { EquipmentUpdateDto } from '../domain/dto/equipment-update.dto'
 import { EquipmentDto } from '../domain/dto/equipment.dto'
 import { EquipmentQueryParamDto } from '../domain/dto/query-param.dto'
-import { Equipment } from '../domain/entities/Equipment'
+import { Equipment } from '../domain/entities/equipment.entity'
 import { IEquipmentService } from '../domain/interfaces/equipment-service'
 
 @Controller('equipment')
