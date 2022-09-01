@@ -2,6 +2,7 @@
   "name": "backend",
   "version": "0.0.1",
   "description": "",
+  "license": "Public",
   "author": "Luan Persini",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -25,6 +26,7 @@
     "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.4.6",
     "@nestjs/sequelize": "^8.0.0",
+    "@nestjs/swagger": "^6.1.1",
     "@nestjs/testing": "^8.4.7",
     "@types/sequelize": "^4.28.14",
     "class-transformer": "^0.5.1",
