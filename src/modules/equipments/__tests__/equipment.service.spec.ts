@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 import { faker } from '@faker-js/faker'
-import { BadRequestException } from '@nestjs/common'
+import { BadRequestException, ConsoleLogger } from '@nestjs/common'
 import { errorMessages } from '@presentation/errors/error-messages'
 import { ItemAlreadyExistsError } from '@presentation/errors/item-already-exists.error'
 import * as uuid from 'uuid'
@@ -17,6 +17,7 @@ let sut: EquipmentService
 let equipment: Equipment
 let equipmentDto: EquipmentDto
 let equipmentRepositoryMock: IEquipmentRepository
+const loggerMock = new ConsoleLogger()
 let equipmentId: string
 
 const randomUuid = faker.datatype.uuid()
@@ -26,7 +27,7 @@ const setupTest = () => {
   equipment = new Equipment(equipmentDto)
   equipmentId = equipment.id
   equipmentRepositoryMock = makeEquipmentRepositoryMock(equipment)
-  sut = new EquipmentService(equipmentRepositoryMock) 
+  sut = new EquipmentService(equipmentRepositoryMock, loggerMock ) 
   jest.spyOn(uuid, 'v4').mockImplementation(() => randomUuid)    
 }
 
@@ -94,6 +95,12 @@ describe(`Equipment Service`, () => {
 
   describe(`Update Equipment`, () => {
     const execSut = () => sut.updateEquipment(equipmentId, equipmentDto)
+
+    test('should throw Error if updateData is empty', async () => {
+      equipmentDto = {} as any
+
+      await expect(execSut()).rejects.toThrowError(new BadRequestException(errorMessages.noDataProvided))
+    })
 
     test('should call equipmentRepository.getEquipmentById() with the correct params', async () => {     
       await execSut()

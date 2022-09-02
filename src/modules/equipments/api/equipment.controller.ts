@@ -1,6 +1,5 @@
-import { BadRequestException, Body, Controller, Delete, Get, Inject, Patch, Post, Query } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Inject, Patch, Post, Query } from '@nestjs/common'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
-import { errorMessages } from '@presentation/errors/error-messages'
 import { EquipmentUpdateDto } from '../domain/dto/equipment-update.dto'
 import { EquipmentDto } from '../domain/dto/equipment.dto'
 import { EquipmentQueryDto, EquipmentQueryGetDto } from '../domain/dto/query-param.dto'
@@ -29,11 +28,7 @@ export class EquipmentController {
 
   @ApiOperation({ summary: 'Update an equipment.' })
   @Patch()
-  async updateEquipment(@Body() body: EquipmentUpdateDto, @Query() { id }: EquipmentQueryDto): Promise<Equipment> {
-    if (Object.keys(body).length === 0) {
-      throw new BadRequestException(errorMessages.noDataProvided)
-    }
-
+  async updateEquipment(@Body() body: EquipmentUpdateDto, @Query() { id }: EquipmentQueryDto): Promise<Equipment> {   
     return await this.equipmentService.updateEquipment(id, body)
   }
 

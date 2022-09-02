@@ -46,6 +46,11 @@ export class EquipmentService implements IEquipmentService {
   public async updateEquipment(id: string, updateData: EquipmentUpdateDto): Promise<Equipment> {
     this.logger.log(`Update Equipment: Starting process for equipment [id: ${id}]`)
 
+    if (Object.keys(updateData).length === 0) {
+      this.logger.error(`Update Equipment: ${errorMessages.noDataProvided}`)
+      throw new BadRequestException(errorMessages.noDataProvided)
+    }
+
     const equipment = await this.equipmentRepository.getEquipmentById(id)
 
     if (!equipment) {
