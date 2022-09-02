@@ -14,12 +14,12 @@ export class EquipmentModel extends Model {
   })
   id: string
 
-  @Length({ min: 3, max: 100 })
+  @Length({ min: 2, max: 100 })
   @AllowNull(false)
   @Column
   model: string
 
-  @Length({ min: 3, max: 100 })  
+  @Length({ min: 2, max: 100 })  
   @AllowNull(false)
   @Column
   category: string

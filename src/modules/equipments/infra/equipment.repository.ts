@@ -2,7 +2,7 @@ import { EquipmentUpdateDto } from '@modules/equipments/domain/dto/equipment-upd
 import { Equipment } from '@modules/equipments/domain/entities/equipment.entity'
 import { IEquipmentRepository } from '@modules/equipments/domain/interfaces/equipment-repository'
 import { Injectable } from '@nestjs/common'
-import { EquipmentModel } from '../models/equipment.model'
+import { EquipmentModel } from './equipment.model'
 
 @Injectable()
 export class EquipmentRepository implements IEquipmentRepository {

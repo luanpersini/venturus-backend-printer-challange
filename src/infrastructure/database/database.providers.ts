@@ -1,4 +1,4 @@
-import { EquipmentModel } from '@modules/equipments/infra/models/equipment.model'
+import { EquipmentModel } from '@modules/equipments/infra/equipment.model'
 import { Sequelize } from 'sequelize-typescript'
 
 export const databaseProviders = [

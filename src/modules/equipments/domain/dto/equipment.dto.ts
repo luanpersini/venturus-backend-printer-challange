@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsBoolean, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, Max, MaxLength, Min, MinLength } from 'class-validator'
+import { IsBoolean, IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Max, MaxLength, Min, MinLength } from 'class-validator'
 import { EnumCategory } from '../enums/EnumCategory'
 
 export class EquipmentDto {
@@ -52,5 +52,6 @@ export class EquipmentDto {
   @Min(0)
   @Max(999999)
   @IsOptional()
+  @IsNumber()
   consumption: number
 }
