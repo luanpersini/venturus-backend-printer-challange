@@ -19,5 +19,6 @@ module.exports = {
     "@infrastructure/(.*)": ["<rootDir>/src/infrastructure/$1"],    
     "src/(.*)": ["<rootDir>/src/$1"],
     "@tests/(.*)": ["<rootDir>/tests/$1"]
-  }
+  },
+  "testMatch": ["**/*.spec.ts","**/*.test.ts", "**/*.e2e-spec.ts" ]
 }

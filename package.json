@@ -11,10 +11,8 @@
     "start:dev": "npm run prebuild & nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "test": "jest --passWithNoTests --no-cache",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:unit": "npm test -- --watch --runInBand -c jest-unit-config.js",
-    "test:int": "npm test -- --watch --runInBand -c jest-integration-config.js",
+    "test": "jest --passWithNoTests --runInBand --no-cache",    
+    "test:unit": "npm test -- --watch --runInBand -c jest-unit-config.js",    
     "test:e2e": "npm run prebuild & npm test -- --watchAll --verbose --config ./tests/jest-e2e.json",
     "clear:jest": "jest --clearCache"
   },

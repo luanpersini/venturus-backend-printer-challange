@@ -9,7 +9,7 @@ import { EquipmentDto } from '../domain/dto/equipment.dto'
 import { Equipment } from '../domain/entities/equipment.entity'
 import { IEquipmentRepository } from '../domain/interfaces/equipment-repository'
 import { EquipmentService } from '../services/equipment.service'
-import { equipment2, makeEquipmentDto, makeEquipmentRepositoryMock } from './equipments.test-data'
+import { equipment2, makeEquipmentDto, makeEquipmentRepositoryMock } from './equipment.test-data'
 
 jest.mock('uuid')
 
@@ -52,7 +52,6 @@ describe(`Equipment Service`, () => {
 
       expect(spy).toHaveBeenCalledWith(equipment.model, equipment.category)
     })
-
   }) //End Create Equipment
 
   describe(`List Equipments`, () => {
@@ -89,7 +88,6 @@ describe(`Equipment Service`, () => {
 
       expect(result).toEqual([equipment])
     })
-
   }) //End List Equipments
 
 
@@ -133,7 +131,6 @@ describe(`Equipment Service`, () => {
 
       expect(result).toEqual(equipment)
     })
-
   }) //End Update Equipment
 
   describe(`Delete Equipment`, () => {
@@ -150,7 +147,6 @@ describe(`Equipment Service`, () => {
 
       await expect(execSut()).rejects.toThrowError( new BadRequestException(errorMessages.equipmentNotFound))
     }) 
-
   }) //End Delete Equipment
 
 
@@ -167,8 +163,7 @@ describe(`Equipment Service`, () => {
       jest.spyOn(equipmentRepositoryMock, 'equipmentExists').mockResolvedValueOnce(true)
 
       await expect(execSut()).rejects.toThrowError(new BadRequestException(new ItemAlreadyExistsError('Equipment', 'Model and Category')))
-    })
-    
+    })    
   }) //End EquipmentService.checkIfEquipmentExists
 
 })

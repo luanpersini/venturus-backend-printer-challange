@@ -29,10 +29,10 @@ export class EquipmentDto {
     example: 999999,
     description: 'Pages per minute. Allowed values: integer 0 to 999999'  
   })
+  @IsOptional()
   @IsInt()
   @Min(0)
   @Max(999999)
-  @IsOptional()
   ppm: number
 
   @ApiProperty({
@@ -40,8 +40,8 @@ export class EquipmentDto {
     example: true,
     description: 'Wifi conection. Allowed values: true or false'  
   })
-  @IsBoolean()
   @IsOptional()
+  @IsBoolean()
   wifi: boolean
 
   @ApiProperty({
@@ -49,9 +49,9 @@ export class EquipmentDto {
     example: 999999,
     description: 'Power consumption. Allowed values: real number 0 to 999999'  
   })
+  @IsOptional()
   @Min(0)
   @Max(999999)
-  @IsOptional()
   @IsNumber()
   consumption: number
 }

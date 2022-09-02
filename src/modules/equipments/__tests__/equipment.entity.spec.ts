@@ -3,7 +3,7 @@ import * as uuid from 'uuid'
 import { faker } from '@faker-js/faker'
 import { EquipmentDto } from '../domain/dto/equipment.dto'
 import { Equipment } from '../domain/entities/equipment.entity'
-import { makeEquipmentDto } from './equipments.test-data'
+import { makeEquipmentDto } from './equipment.test-data'
 
 const randomUuid = faker.datatype.uuid()
 let equipmentDto: EquipmentDto

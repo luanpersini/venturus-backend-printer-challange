@@ -1,9 +1,5 @@
 import { Equipment } from '../domain/entities/equipment.entity'
 
-
-
-
-
 export const makeEquipmentDto = (params?: any) => ({  
   model: "Model PTW",
   category: "toner",

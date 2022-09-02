@@ -58,26 +58,27 @@ export class EquipmentService implements IEquipmentService {
       throw new BadRequestException(errorMessages.equipmentNotFound)
     }
 
-    if (updateData.model || updateData.category) {
-      if (equipment.model != updateData.model || equipment.category != updateData.category) {
-        await this.checkIfEquipmentExists(updateData.model, updateData.category)
-      }
+    if ((updateData.model && equipment.model != updateData.model) || (updateData.category && equipment.category != updateData.category)) {
+      const model = updateData.model ? updateData.model : equipment.model
+      const category = updateData.category ? updateData.category : equipment.category
+      await this.checkIfEquipmentExists(model, category)
     }
+
     const result = await this.equipmentRepository.updateEquipment(id, updateData)
     this.logger.log(`Update Equipment: Equipment [id: ${result.id}] updated.`)
     return result
   }
 
   public async deleteEquipment(id: string): Promise<void> {
-     this.logger.log(`Delete Equipment: Starting process for equipment [id: ${id}]`)
+    this.logger.log(`Delete Equipment: Starting process for equipment [id: ${id}]`)
     const result = await this.equipmentRepository.deleteEquipmentById(id)
 
     if (result === 0) {
-       this.logger.error(`Delete Equipment: Equipment with [id: ${id}] not found.`)
+      this.logger.error(`Delete Equipment: Equipment with [id: ${id}] not found.`)
       throw new BadRequestException(errorMessages.equipmentNotFound)
     }
 
-     this.logger.log(`Delete Equipment: Equipment [id: ${id}] deleted.`)
+    this.logger.log(`Delete Equipment: Equipment [id: ${id}] deleted.`)
   }
 
   private async checkIfEquipmentExists(model: string, category: string): Promise<void> {
