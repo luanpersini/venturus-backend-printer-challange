@@ -1,4 +1,5 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common'
+import { ConsoleLogger } from '@nestjs/common/services'
 import { errorMessages } from '@presentation/errors/error-messages'
 import { ItemAlreadyExistsError } from '@presentation/errors/item-already-exists.error'
 import { EquipmentUpdateDto } from '../domain/dto/equipment-update.dto'
@@ -11,17 +12,19 @@ import { IEquipmentService } from '../domain/interfaces/equipment-service'
 export class EquipmentService implements IEquipmentService {
   constructor(
     @Inject('IEquipmentRepository')
-    private readonly equipmentRepository: IEquipmentRepository
+    private readonly equipmentRepository: IEquipmentRepository,
+    @Inject('ConsoleLogger')
+    private readonly logger: ConsoleLogger
   ) {}
 
   public async createEquipment(equipmentData: EquipmentDto): Promise<Equipment> {
-    console.log(`Create Equipment: Starting process for equipment [${JSON.stringify(equipmentData)}]`)
+    this.logger.log(`Create Equipment: Starting process for equipment [${JSON.stringify(equipmentData)}]`)
     const equipment = new Equipment(equipmentData)
 
     await this.checkIfEquipmentExists(equipment.model, equipment.category)
 
     const result = await this.equipmentRepository.createEquipment(equipment)
-    console.log(`Equipment: Equipment [id: ${result.id}] [model: ${result.model}] created.`)
+    this.logger.log(`Create Equipment: Equipment [id: ${result.id}] [model: ${result.model}] created.`)
     return result
   }
 
@@ -33,6 +36,7 @@ export class EquipmentService implements IEquipmentService {
     const equipment = await this.equipmentRepository.getEquipmentById(id)
 
     if (!equipment) {
+      this.logger.error(`List Equipment: Equipment with [id: ${id}] not found.`)
       throw new BadRequestException(errorMessages.equipmentNotFound)
     }
 
@@ -40,11 +44,12 @@ export class EquipmentService implements IEquipmentService {
   }
 
   public async updateEquipment(id: string, updateData: EquipmentUpdateDto): Promise<Equipment> {
-    console.log(`Update Equipment: Starting process for equipment [id: ${id}]`)
+    this.logger.log(`Update Equipment: Starting process for equipment [id: ${id}]`)
 
     const equipment = await this.equipmentRepository.getEquipmentById(id)
 
     if (!equipment) {
+      this.logger.error(`Update Equipment: Equipment with [id: ${id}] not found.`)
       throw new BadRequestException(errorMessages.equipmentNotFound)
     }
 
@@ -54,24 +59,25 @@ export class EquipmentService implements IEquipmentService {
       }
     }
     const result = await this.equipmentRepository.updateEquipment(id, updateData)
-    console.log(`Update Equipment: Equipment [id: ${result.id}] updated.`)
+    this.logger.log(`Update Equipment: Equipment [id: ${result.id}] updated.`)
     return result
   }
 
   public async deleteEquipment(id: string): Promise<void> {
-    console.log(`Delete Equipment: Starting process for equipment [id: ${id}]`)
+     this.logger.log(`Delete Equipment: Starting process for equipment [id: ${id}]`)
     const result = await this.equipmentRepository.deleteEquipmentById(id)
 
     if (result === 0) {
-      console.log(`Delete Equipment: Equipment with [id: ${id}] not found.`)
+       this.logger.error(`Delete Equipment: Equipment with [id: ${id}] not found.`)
       throw new BadRequestException(errorMessages.equipmentNotFound)
     }
 
-    console.log(`Delete Equipment: Equipment [id: ${id}] deleted.`)
+     this.logger.log(`Delete Equipment: Equipment [id: ${id}] deleted.`)
   }
 
   private async checkIfEquipmentExists(model: string, category: string): Promise<void> {
     if (await this.equipmentRepository.equipmentExists(model, category)) {
+      this.logger.error(`Equipment with [Model: ${model}] and [Category: ${category}] already exists.`)
       throw new BadRequestException(new ItemAlreadyExistsError('Equipment', 'Model and Category'))
     }
   }
