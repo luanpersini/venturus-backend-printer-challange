@@ -156,6 +156,14 @@ describe('Equipment End-To-End Tests', () => {
     //Validate the Dto Properties
     describe('EquipmentDto test (used in POST /equipment)', () => {
       standardDtoTests(equipmentDtoTestParams, makeEquipmentDto, createEquipment, {}, { okStatus: 201 })
+
+      test('should return **BadRequest** if the given (category) is not present in the EnumCategory.', async () => {
+        requestData.category = 'im_not_in_enum_category'
+        
+        const { status, body } = await createEquipment(requestData)
+        expect(body.message).toBe(errorMessages.enumCategoryError)
+        expect(status).toBe(400)
+      })
     })
 
     describe('EquipmentUpdateDto test (used in PATCH /equipment)', () => {

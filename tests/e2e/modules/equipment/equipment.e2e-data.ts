@@ -8,7 +8,7 @@ export const makeDtoParams = (dto) => {
 
 export const makeEquipmentDtoParams = (params?: any) => ({
   model: [params.required, 'IsString', 'IsNotEmpty', 'MinLength.2', 'MaxLength.100'],
-  category: [params.required, 'IsString','IsNotEmpty', 'IsEnum'],
+  category: [params.required, 'IsString','IsNotEmpty'],
   ppm: ['IsOptional', 'IsInt', 'Min.0', 'Max.999999'],
   wifi: ['IsOptional', 'IsBoolean'],
   consumption: ['IsOptional', 'IsNumber', 'Min.0', 'Max.999999']

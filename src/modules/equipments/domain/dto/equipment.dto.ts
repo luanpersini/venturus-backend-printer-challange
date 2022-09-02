@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { errorMessages } from '@presentation/errors/error-messages'
 import { IsBoolean, IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Max, MaxLength, Min, MinLength } from 'class-validator'
 import { EnumCategory } from '../enums/EnumCategory'
 
@@ -21,7 +22,7 @@ export class EquipmentDto {
   })
   @IsString() 
   @IsNotEmpty()
-  @IsEnum(EnumCategory) 
+  @IsEnum(EnumCategory, {message: errorMessages.enumCategoryError}) 
   category: string
 
   @ApiProperty({
