@@ -53,15 +53,15 @@ The test should be done using:
 ## Tests
 ### To run the tests
 
-1. open the terminal and run the command of the chosen test type
+1. open the terminal and run the command of the chosen test type:
 
-- `npm run test` - to run all tests
-- `npm run test:unit` - unit tests
-- `npm run test:e2e`  - end to end tests
+- to run all tests: `npm run test` 
+- to run unit tests: `npm run test:unit`
+- to run end to end tests: `npm run test:e2e`
 
 ###  Testing the API using REST Client ##
 
-Inside modules/<module-name>/api, you may find `.http` files that works with the extension **REST Client**
+If using VSCode, inside src/modules/module-name/api, you may find `.http` files that works with the extension **REST Client**
 
 https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 
@@ -69,6 +69,9 @@ https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 1. Start the aplication
 1. Open the .http file
 1. Click send (replace the id when necessary)
+
+
+![](docs/rest-client.png)
 
 </br>
 
