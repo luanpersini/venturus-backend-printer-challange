@@ -87,8 +87,8 @@ Access http://localhost:3000/docs to view swagger documentation.
 
 ## Architecture
 
-I've used clean architecture with concepts of "Domain Driven Design" (which is a design tool and not an architecture). I've separated the context by components (modules), which also follow NestJS standards.
+I've used clean architecture with concepts of "Domain Driven Design" (which is a design tool and not an architecture). I've separated the context by components (modules), which also follow NestJS standards. This module separation has an monolitic backend-api in mind, wich can be easily expanded. For a micro-service (with a single context), i would bring everyting inside the modules folder foward, separating the content on their corresponding layers.
 
-- The services (usecases) contains the business rules of the application.
-- The dependency inversion principle is aplied and depencency happens from the outer layers to the inner layers.
+The services (usecases) contains the business rules of the application.
+
 
